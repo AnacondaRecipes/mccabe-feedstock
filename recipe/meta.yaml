@@ -13,29 +13,36 @@ source:
   {{ hash_type }}: {{ hash_val }}
 
 build:
-  number: 1
-  script: python setup.py install --single-version-externally-managed --record=record.txt
+  number: 0
+  noarch: python
+  script: {{ PYTHON }} -m pip install . --no-deps -vv
 
 requirements:
   host:
     - python
+    - pip
     - setuptools
-    - pytest-runner
-
+    - wheel
   run:
-    - python
+    - python >=3.6
 
 test:
   imports:
     - {{ name }}
+  requires:
+    - pip
+    - python <3.10
+  commands:
+    - pip check
 
 about:
   home: https://github.com/PyCQA/mccabe
   license: MIT
   license_family: MIT
   license_file: LICENSE
-  summary: 'McCabe complexity checker for Python'
+  summary: McCabe complexity checker for Python
   dev_url: https://github.com/PyCQA/mccabe
+  doc_url: https://github.com/PyCQA/mccabe/blob/master/README.rst
 
 extra:
   recipe-maintainers:
