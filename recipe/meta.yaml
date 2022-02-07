@@ -1,7 +1,7 @@
 {%set name = "mccabe" %}
-{%set version = "0.6.1" %}
+{% set version = "0.7.0" %}
 {%set hash_type = "sha256" %}
-{%set hash_val = "dd8d182285a0fe56bace7f45b5e7d1a6ebcbf524e8f3bd87eb0f125271b8831f" %}
+{% set hash_val = "348e0240c33b60bbdf4e523192ef919f28cb2c3d7d5c7794f74009290f236325" %}
 
 package:
   name: {{ name }}
@@ -13,29 +13,36 @@ source:
   {{ hash_type }}: {{ hash_val }}
 
 build:
-  number: 1
-  script: python setup.py install --single-version-externally-managed --record=record.txt
+  number: 0
+  noarch: python
+  script: {{ PYTHON }} -m pip install . --no-deps -vv
 
 requirements:
   host:
     - python
+    - pip
     - setuptools
-    - pytest-runner
-
+    - wheel
   run:
-    - python
+    - python >=3.6
 
 test:
   imports:
     - {{ name }}
+  requires:
+    - pip
+    - python <3.10
+  commands:
+    - pip check
 
 about:
   home: https://github.com/PyCQA/mccabe
   license: MIT
   license_family: MIT
   license_file: LICENSE
-  summary: 'McCabe complexity checker for Python'
+  summary: McCabe complexity checker for Python
   dev_url: https://github.com/PyCQA/mccabe
+  doc_url: https://github.com/PyCQA/mccabe/blob/master/README.rst
 
 extra:
   recipe-maintainers:
