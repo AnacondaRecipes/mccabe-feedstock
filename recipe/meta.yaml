@@ -13,13 +13,15 @@ source:
   {{ hash_type }}: {{ hash_val }}
 
 build:
-  number: 1
-  script: python setup.py install --single-version-externally-managed --record=record.txt
+  number: 2
+  script: {{ PYTHON }} setup.py install --single-version-externally-managed --record=record.txt
 
 requirements:
   host:
     - python
     - setuptools
+    - pip
+    - wheel
     - pytest-runner
 
   run:
