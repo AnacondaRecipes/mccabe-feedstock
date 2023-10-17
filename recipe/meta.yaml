@@ -13,7 +13,7 @@ source:
   {{ hash_type }}: {{ hash_val }}
 
 build:
-  number: 0
+  number: 1
   noarch: python
   script: {{ PYTHON }} -m pip install . --no-deps -vv
 
@@ -31,7 +31,7 @@ test:
     - {{ name }}
   requires:
     - pip
-    - python <3.10
+    - python
   commands:
     - pip check
 
